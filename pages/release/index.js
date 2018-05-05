@@ -79,6 +79,50 @@ Page({
     })
     
   },
+  bindPhoto :function(e) {
+
+    var that = this;
+
+    wx.chooseImage({
+
+      count: 1,
+
+      sizeType: ['original', 'compressed'],// 指定原图或者压缩图
+
+      sourceType: ['album',
+        'camera'], // 指定图片来源
+
+      success: function (res) {
+
+        var tempFilePaths = res.tempFilePaths;
+
+        wx.uploadFile({
+          url: 'http://localhost:8080/VoteSystemServer/doUpload.do',
+          filePath: tempFilePaths[0],//图片路径，如tempFilePaths[0]
+          name: 'image',
+          header: {
+            "Content-Type": "multipart/form-data"
+          },
+          formData:
+          {
+            userId: 123 //附加信息为用户ID
+          },
+          success: function (res) {
+            console.log(res);
+          },
+          fail: function (res) {
+            console.log(res);
+          },
+          complete: function (res) {
+
+          }
+        })
+
+      }
+
+    })
+
+  },
   
 
   onLoad: function (options) {
