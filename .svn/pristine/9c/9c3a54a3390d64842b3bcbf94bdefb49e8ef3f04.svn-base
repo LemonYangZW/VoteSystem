@@ -1,0 +1,97 @@
+//index.js
+//获取应用实例
+const app = getApp()
+
+
+Page({
+  data: {
+    items:[{
+      tid:''
+
+    }]
+   
+
+  }, 
+
+  //事件处理函数
+  onLoad: function () {
+    var that=this
+   
+    wx.request({
+      url: 'http://localhost:8080/VoteSystemServer/doFindAll.do',
+      data: {
+        id: '',
+        tid: ''
+      },
+      method: 'GET',
+      header: { 'content-type': 'application/json' },
+      success: function (res) {
+        var arr = res.data.split("|");
+        for (let i=0; i < arr.length-1; i++) { 
+          var t = JSON.parse(arr[i]).tid;
+          var m = "items[" + i + "].tid"
+          that.setData({
+            
+            [m]: t
+
+          })
+          }
+        
+        console.log(arr);
+        console.log(t);
+        
+        
+      },
+      fail: function (res) {
+        console.log('submit fail');
+      },
+      complete: function (res) {
+        console.log('submit complete');
+      }
+
+    })
+      
+  },
+  
+  
+  getUserInfo: function(e) {
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true,
+    })
+  }, 
+  search() {
+    wx.navigateTo({ url: '../search/index' });
+  },
+  onPullDownRefresh(){
+    var that=this
+    wx.request({
+      url: 'http://localhost:8080/VoteSystemServer/doFindAll.do',
+      data: {
+        id: '',
+        tid: ''
+      },
+      method: 'GET',
+      header: { 'content-type': 'application/json' },
+      success: function (res) {
+        console.log(res.data);
+        that.setData({
+          tid: res.data.tid
+        })
+      },
+      fail: function (res) {
+        console.log('submit fail');
+      },
+      complete: function (res) {
+        console.log('submit complete');
+      }
+
+    }) 
+  }
+  
+  
+  
+  
+})

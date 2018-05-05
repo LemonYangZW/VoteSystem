@@ -1,0 +1,4 @@
+.weui-icon-search, 
+.weui-search-bar__text {
+    vertical-align: inherit;
+}

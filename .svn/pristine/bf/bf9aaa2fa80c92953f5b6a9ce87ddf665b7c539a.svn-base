@@ -1,0 +1,33 @@
+<import src="../common/nav.wxml"/>
+<import src="../common/list.wxml"/>
+<view class="weui-search-bar">
+    <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+            <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+            <input type="text" class="weui-search-bar__input" placeholder="搜索"/>
+        </view>
+         <label class="weui-search-bar__label" bindtap="search">
+            <icon class="weui-icon-search" type="search" size="14"></icon>
+            <view class="weui-search-bar__text">搜索</view>
+        </label> 
+    </view>
+</view>
+<view wx:for="{{items}}" wx:for-item="item" wx:key="" bindtap="tapName"> 
+<text>
+任务编号:{{item.tid}}   
+任务名称:{{item.tname}}   
+任务内容:{{item.tcontent}}  
+需求数量:{{item.tnumber}}  
+需求人姓名:{{item.name}} 
+需求人电话:{{item.phone}} 
+需求人微信:{{item.wxnum}} 
+发布时间:{{item.tm}} 
+审核状态:{{item.status}}
+<button type=""></button>
+</text>
+
+</view>
+<view>
+{{tid}}</view>
+<template is="nav" data="{{ navList, activeIndex }}"/>
+<template is="list" data="{{ goods, prompt }}"/>

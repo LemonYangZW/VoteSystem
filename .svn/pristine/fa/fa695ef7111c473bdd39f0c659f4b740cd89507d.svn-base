@@ -1,0 +1,83 @@
+//index.js
+//获取应用实例
+const app = getApp()
+
+
+Page({
+  data: {
+   items:[]
+    
+  }, 
+
+  //事件处理函数
+  onLoad: function () {
+    var that=this
+    
+    wx.request({
+      url: 'http://localhost:8080/VoteSystemServer/doFindAll.do',
+      data: {
+          id:'1', //传给后台
+          tid:'123'
+      },
+      method: 'POST',
+      header: { 'content-type': 'application/json' },
+      success: function (res) {
+        console.log(res.data);
+        console.log(res.data);
+        that.setData({
+          
+          items: res.data
+        })
+        
+
+      },
+      fail: function (res) {
+        console.log('submit fail');
+      },
+      complete: function (res) {
+        console.log('submit complete');
+      }
+
+    }) 
+      
+  },
+  
+  getUserInfo: function(e) {
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true,
+    })
+  }, 
+  search() {
+    wx.navigateTo({ url: '../search/index' });
+  },
+  onPullDownRefresh(){
+    var that=this
+    wx.request({
+      url: 'http://localhost:8080/VoteSystemServer/doFindAll.do',
+      data: {
+        id: '',
+        tid: ''
+      },
+      method: 'GET',
+      header: { 'content-type': 'application/json' },
+      success: function (res) {
+        console.log(res.data);
+        that.setData({
+          tid: res.data.tid
+        })
+      },
+      fail: function (res) {
+        console.log('submit fail');
+      },
+      complete: function (res) {
+        console.log('submit complete');
+      }
+
+    }) 
+  }
+  
+  
+})

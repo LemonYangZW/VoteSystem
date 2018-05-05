@@ -1,0 +1,25 @@
+<!--style的优先级比class高会覆盖和class相同属性-->
+<view>任务名称:
+<input   placeholder="请输入任务名称"  bindinput="listenertnameInput" />
+</view>
+<view style="margin-top: 5% ">
+<text>任务内容:</text>
+
+<input   placeholder="请输入任务内容"  bindinput="listenertcontentInput" />
+</view>
+<view style="margin-top: 5% ">
+<text>需求数量:</text>
+
+<input   placeholder="请输入需求数量"  bindinput="listenertnumberInput" type="number"/>
+</view>
+<view style="margin-top: 5% ">
+<text>每票价格:</text>
+
+<input   placeholder="请输入每票价格"  bindinput="listenerpriceInput" type="digit"/>
+</view>
+<view style="margin-top: 5% ">
+<text>您的电话:</text>
+
+<input   placeholder="请输入您的电话号码"  bindinput="listenerphoneInput" type="number"/>
+</view>
+<button style="margin-left: 15rpx; margin-right: 15rpx; margin-top: 50rpx; border-radius: 40rpx" type="primary" bindtap="listenerSubmit">提交</button>

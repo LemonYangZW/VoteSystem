@@ -1,0 +1,46 @@
+
+<!--主盒子-->  
+<view class="container">  
+  <!--head-->  
+  <view class="tit">  
+    <view class="title_val">商品列表</view>  
+    <view class="more">
+    <button size='mini'  bindtap="torelease" hover-class="other-button-hover"> 我要发布 </button>
+    </view>  
+  </view>  
+  <!--list-->  
+  <view class="goodslist">  
+    <!--item-->  
+    <block wx:for="{{items}}" wx:key="">  
+      <view class="goods">  
+        <!--右侧说明部分-->  
+        <view class="good-cont" bindtap='tapName'>  
+          <!--上--文字说明-->  
+          <view class="goods-navigator">  
+          
+            <text class="good-name">{{item.tid}}</text>  
+            <text class="good-name">{{item.tcontent}}</text>  
+          </view>  
+          <!--下--价格部分-->  
+          <view class="good-price">  
+            <text>需求数量：{{item.tnumber}}</text>
+            <text>每票￥{{item.price}}</text>
+            
+          </view>  
+        </view>  
+      </view>  
+    </block>  
+  </view>  
+</view>  
+
+
+
+<!-- 任务编号:{{item.tid}}   
+任务名称:{{item.tname}}   
+任务内容:{{item.tcontent}}  
+需求数量:{{item.tnumber}}  
+需求人姓名:{{item.name}} 
+需求人电话:{{item.phone}} 
+需求人微信:{{item.wxnum}} 
+发布时间:{{item.tm}} 
+审核状态:{{item.status}} -->

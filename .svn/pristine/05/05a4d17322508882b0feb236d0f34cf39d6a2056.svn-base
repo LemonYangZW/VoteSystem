@@ -1,0 +1,145 @@
+//index.js
+//获取应用实例
+const app = getApp()
+
+
+Page({
+  data: {
+    items:[{
+      tid:'',
+      tname:'',
+      tcontent:'',
+      tnumber:'',
+      name:'',
+      phone:'',
+      wxnum:'',
+      tm:'',
+      status:'',
+      price:''
+    }]
+   
+
+  }, 
+
+  //事件处理函数
+  onLoad: function () {
+    var that=this
+   
+    wx.request({
+      url: 'http://193.112.185.121:8080/VoteSystemServer/doFindAll.do',
+      data: {
+        id: '',
+        tid: ''
+      },
+      method: 'GET',
+      header: { 'content-type': 'application/json' },
+      success: function (res) {
+        var arr = res.data.split("|");
+        for (let i=0; i < arr.length-1; i++) { 
+          var tid = JSON.parse(arr[i]).tid;
+          var tname = JSON.parse(arr[i]).tname;
+          var tcontent = JSON.parse(arr[i]).tcontent;
+          var tnumber = JSON.parse(arr[i]).tnumber;
+          var name = JSON.parse(arr[i]).name;
+          var phone = JSON.parse(arr[i]).phone;
+          var wxnum = JSON.parse(arr[i]).wxnum;
+          var tm = JSON.parse(arr[i]).tm;
+          var status = JSON.parse(arr[i]).status;
+          var price = JSON.parse(arr[i]).price;
+          var tid_data = "items[" + i + "].tid"
+          var tname_data = "items[" + i + "].tname"
+          var tcontent_data = "items[" + i + "].tcontent"
+          var tnumber_data = "items[" + i + "].tnumber"
+          var name_data = "items[" + i + "].name"
+          var phone_data = "items[" + i + "].phone"
+          var wxnum_data = "items[" + i + "].wxnum"
+          var tm_data = "items[" + i + "].tm"
+          var status_data = "items[" + i + "].status"
+          var price_data = "items[" + i + "].price"
+          that.setData({
+            [tid_data]: tid,
+            [tname_data]: tname,
+            [tcontent_data]:tcontent,
+            [tnumber_data]: tnumber,
+            [name_data]: name,
+            [phone_data]: phone,
+            [wxnum_data]: wxnum,
+            [tm_data]: tm,
+            [status_data]: status,
+            [price_data]:price
+          })
+          }
+        
+        console.log(arr);
+        
+        
+        
+      },
+      fail: function (res) {
+        console.log('submit fail');
+      },
+      complete: function (res) {
+        console.log('submit complete');
+      }
+
+    })
+      
+  },
+  
+  
+  getUserInfo: function(e) {
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true,
+    })
+  }, 
+  search() {
+    wx.navigateTo({ url: '../search/index' });
+  },
+  onPullDownRefresh(){
+    var that=this
+    wx.request({
+      url: 'http://193.112.185.121:8080/VoteSystemServer/doFindAll.do',
+      data: {
+        id: '',
+        tid: ''
+      },
+      method: 'GET',
+      header: { 'content-type': 'application/json' },
+      success: function (res) {
+        console.log(res.data);
+        that.setData({
+          tid: res.data.tid
+        })
+      },
+      fail: function (res) {
+        console.log('submit fail');
+      },
+      complete: function (res) {
+        console.log('submit complete');
+      }
+
+    }) 
+  },
+  tapName: function (e) {
+    wx.showToast({
+      title: '成功',
+      
+      duration: 2000
+    }),
+    wx.navigateTo({
+      url: '../about/index',
+    })
+
+  }, torelease:function(){
+    wx.navigateTo({
+      url: '../release/index',
+    })
+  }
+  
+  
+  
+  
+})
