@@ -2,7 +2,11 @@ const App = getApp()
 
 Page({
   data: {
-    userInfo: {},
+    userInfo: {
+      session_key: '',
+      openid:''
+    }
+    ,
     items: [
       {
         icon: '../../assets/images/iconfont-order.png',
@@ -34,8 +38,39 @@ Page({
     ]
   },
   onLoad() {
-    this.getUserInfo()
-    this.getStorageInfo()
+    var that=this
+    wx.login({
+      success: function (res) {
+        var code = res.code;
+        if (code) {
+          console.log('获取用户登录凭证：' + code);
+
+          // --------- 发送凭证 ------------------
+          wx.request({
+            url: 'http://localhost:8080/VoteSystemServer/OnLogin',
+            data: { code: code },
+            success: function(res){
+              console.log(res.data)
+              var openid = res.data.openid
+
+              console.log(openid)
+              // that.setData({
+              //   that.userinfo.openid:openid
+                
+              // })
+            }
+          })
+          // ------------------------------------
+
+        } else {
+          console.log('获取用户登录态失败：' + res.errMsg);
+        }
+      }
+    })
+    
+
+    // this.getUserInfo()
+    // this.getStorageInfo()
   },
   navigateTo(e) {
     const index = e.currentTarget.dataset.index
