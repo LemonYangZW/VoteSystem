@@ -95,7 +95,7 @@ Page({
       success: function (res) {
 
         var tempFilePaths = res.tempFilePaths;
-
+        console.log(tempFilePaths);
         wx.uploadFile({
           url: 'http://localhost:8080/VoteSystemServer/doUpload.do',
           filePath: tempFilePaths[0],//图片路径，如tempFilePaths[0]

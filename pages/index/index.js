@@ -31,13 +31,13 @@ Page({
     var that = this
 
     wx.request({
-      url: 'http://193.112.185.121:8080/VoteSystemServer/doFindAll.do',
+      url: 'http://localhost:8080/VoteSystemServer/doFindAll.do',
       data: {
-        id: '',
-        tid: ''
+        Type: 'id',
+        SearchName: '=1'
       },
       method: 'POST',
-      header: { 'content-type': 'application/json' },
+      header: { 'content-type': 'application/x-www-form-urlencoded' },
       success: function (res) {
         var arr = res.data.split("|");
         for (let i = 0; i < arr.length - 1; i++) {
